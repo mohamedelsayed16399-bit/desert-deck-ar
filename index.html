@@ -98,7 +98,8 @@ let G=null,C=null,sel=null;
 const save=()=>{try{localStorage.setItem('dd_run',JSON.stringify(G))}catch(e){}};
 let meta={wins:0,best:0,runs:0};try{meta=Object.assign(meta,JSON.parse(localStorage.getItem('dd_meta')||'{}'))}catch(e){}
 const saveMeta=()=>{try{localStorage.setItem('dd_meta',JSON.stringify(meta))}catch(e){}};
-function newRun(){G={hp:70,max:70,gold:60,deck:startDeck(),relics:[],floor:0,plan:PLAN.map(p=>p.slice()),cleared:0,rm:0};C=null;save();showMap()}
+const DF=[['سهل',90,.8],['عادي',70,1],['صعب',60,1.25]];
+function newRun(){const df=meta.df==null?1:meta.df;G={df,hp:DF[df][1],max:DF[df][1],gold:60,deck:startDeck(),relics:[],floor:0,plan:PLAN.map(p=>p.slice()),cleared:0,rm:0};C=null;save();showMap()}
 // ---- audio
 let AC=null,mute=localStorage.getItem('dd_mute')==='1';
 function au(){if(!AC){try{AC=new (window.AudioContext||window.webkitAudioContext)()}catch(e){}}if(AC&&AC.state==='suspended')AC.resume()}
@@ -113,10 +114,10 @@ function toast(t){const e=$('toast');e.textContent=t;e.classList.add('on');clear
 function showMenu(){let has=false;try{has=!!localStorage.getItem('dd_run')}catch(e){}
  scr().innerHTML=`<div class="center"><div class="logo">🏺</div><h1>كروت الصحرا</h1><p class="sub">لعبة كروت روجلايك: ابني دِك، واهزم الحراس والنخبة، وواجه أبوفيس في آخر المعبد. لو مت بتبدأ من الأول!</p>
  <div class="mm">🏆 انتصارات: ${meta.wins} &nbsp; 🏛️ أبعد طابق: ${meta.best} &nbsp; 🎮 محاولات: ${meta.runs}</div>
- ${has?'<button class="big" id="cont">كمّل الرحلة ▶</button>':''}<button class="big ${has?'alt':''}" id="newr">رحلة جديدة</button><button class="big alt" id="how">إزاي تلعب؟</button></div>`;
+ <button class="big alt" id="dfb">الصعوبة: ${DF[meta.df==null?1:meta.df][0]}</button>${has?'<button class="big" id="cont">كمّل الرحلة ▶</button>':''}<button class="big ${has?'alt':''}" id="newr">رحلة جديدة</button><button class="big alt" id="how">إزاي تلعب؟</button></div>`;
  $('newr').onclick=()=>{au();if(has&&!confirm('الرحلة القديمة هتتمسح. متأكد؟'))return;meta.runs++;saveMeta();newRun()};
  if(has)$('cont').onclick=()=>{au();try{G=JSON.parse(localStorage.getItem('dd_run'));}catch(e){return newRun()}showMap()};
- $('how').onclick=showHow}
+ $('how').onclick=showHow;$('dfb').onclick=()=>{meta.df=((meta.df==null?1:meta.df)+1)%3;saveMeta();showMenu()}}
 function showHow(){scr().innerHTML=`<div class="center"><h1 style="font-size:26px">إزاي تلعب</h1><div class="how">• كل دور معاك طاقة 3 وبتسحب 5 كروت.<br>• اضغط على كارت وبعدين على العدو لو بيحتاج هدف.<br>• الأيقونة فوق العدو بتقولك هيعمل إيه الدور الجاي: ⚔️ هجوم، 🛡️ درع، ⬆️ قوة، ☠️ إضعاف.<br>• الدرع بيمتص الضرر ويتصفّر كل دور.<br>• بعد كل معركة اختار كارت جديد، وفي المعسكر 🔥 اشفي أو طوّر كارت، وفي السوق 🛒 اشتري.<br>• 10 طوابق وآخرها أبوفيس 🐉.</div><button class="big" id="bk">فهمت</button></div>`;$('bk').onclick=showMenu}
 // ---- map
 function showMap(){save();if(G.floor>=10)return;const opts=G.plan[G.floor];
@@ -130,7 +131,7 @@ function nextFloor(){G.floor++;G.cleared++;if(G.floor>meta.best){meta.best=G.flo
 function startCombat(kind){
  let names;if(kind==='X')names=['apep'];else if(kind==='E')names=[pick(['anubis','sphinx'])];else names=pick(ENC[G.floor<4?1:2]);
  const sc=1+G.floor*.03;
- const en=names.map((k,i)=>{const d=EN[k],hp=Math.round((d.hp[0]+rnd(d.hp[1]-d.hp[0]+1))*(d.boss?1:sc));return{k,n:d.n,e:d.e,hp,max:hp,block:0,str:0,vul:0,weak:0,poi:0,t:0,d,elite:d.elite,boss:d.boss,intent:null}});
+ const en=names.map((k,i)=>{const d=EN[k],hp=Math.round((d.hp[0]+rnd(d.hp[1]-d.hp[0]+1))*(d.boss?1:sc)*(DF[G.df==null?1:G.df][2]));return{k,n:d.n,e:d.e,hp,max:hp,block:0,str:0,vul:0,weak:0,poi:0,t:0,d,elite:d.elite,boss:d.boss,intent:null}});
  C={kind,en,P:{block:0,str:0,vul:0,weak:0,ward:0},draw:shuffle(G.deck.map(c=>({...c}))),hand:[],disc:[],exh:[],energy:3,turn:0,busy:false,over:false};
  api.P=C.P;C.en.forEach(e=>setIntent(e));
  if(G.relics.includes('scarab'))C.P.block+=6;if(G.relics.includes('papyrus'))C.P.str+=1;if(G.relics.includes('fang'))C.en.forEach(e=>e.poi+=3);
