@@ -71,9 +71,12 @@ ward:{n:'تعويذة',c:1,t:'p',v:[4],u:[6],d:v=>`احصل على ${v[0]} در�
 fury:{n:'جنون المعركة',c:2,t:'a',tg:1,v:[7],u:[10],d:v=>`اضرب ${v[0]} 3 مرات`,f:(g,t,v)=>{g.hit(t,v[0]);g.hit(t,v[0]);g.hit(t,v[0])}},
 mirror:{n:'مرآة النيل',c:1,t:'s',v:[7,3],u:[10,4],d:v=>`درع ${v[0]} وضعف للكل`,f:(g,t,v)=>{g.blk(v[0]);g.E().forEach(e=>g.st(e,'vul',1))}},
 plague:{n:'وباء الجراد',c:2,t:'a',v:[4],u:[6],d:v=>`سمم الكل ${v[0]}`,f:(g,t,v)=>g.E().forEach(e=>g.st(e,'poi',v[0]))},
+khop:{n:'خوبش الملك',c:1,t:'a',tg:1,v:[7,1],u:[10,2],d:v=>`اضرب ${v[0]} + إضعاف ${v[1]}`,f:(g,t,v)=>{g.hit(t,v[0]);g.st(t,'weak',v[1])}},
+bast:{n:'حدس باستت',c:1,t:'s',v:[6,2],u:[9,2],d:v=>`درع ${v[0]} واسحب ${v[1]}`,f:(g,t,v)=>{g.blk(v[0]);g.draw(v[1])}},
+ra:{n:'غضب رع',c:3,t:'a',v:[22],u:[30],d:v=>`اضرب الكل ${v[0]}`,f:(g,t,v)=>g.hitAll(v[0])},
 };
-const RARE=['heavy','upper','breath','pharaoh','inflame','poison','ward','slam','fury','plague'];
-const COMMON=['cleave','pommel','shrug','twin','iron','adren','sneak','sand','offer','disarm','renew','strike','defend','mirror'];
+const RARE=['heavy','upper','breath','pharaoh','inflame','poison','ward','slam','fury','plague','ra'];
+const COMMON=['cleave','pommel','shrug','twin','iron','adren','sneak','sand','offer','disarm','renew','strike','defend','mirror','khop','bast'];
 const startDeck=()=>['strike','strike','strike','strike','strike','defend','defend','defend','defend','bash'].map(id=>({id,u:0}));
 const cv=(c)=>c.u?CARDS[c.id].u:CARDS[c.id].v;
 const RELICS={ankh:['🏺','أنخ','اشفِ 6 بعد كل معركة'],scarab:['🪲','سكاراب الحظ','ابدأ كل معركة بـ 6 درع'],horus:['👁️','عين حورس','اسحب كارت زيادة كل دور'],ring:['💍','خاتم الدم','+20 صحة قصوى'],sun:['☀️','قرص الشمس','+1 طاقة كل دور'],papyrus:['📜','بردية الحكمة','ابدأ كل معركة بـ +1 قوة'],fang:['🐍','ناب الكوبرا','ابدأ كل معركة والأعداء مسممين 3'],purse:['👛','كيس الذهب','+60 دهب']};
@@ -86,7 +89,7 @@ vulture:{n:'نسر',e:'🦅',hp:[13,16],p:[{a:4,x:2},{a:7},{b:5,a:3}]},
 mummy:{n:'مومياء',e:'🧟',hp:[34,40],p:[{a:9},{vul:2,b:6},{a:6,x:2}]},
 anubis:{n:'أنوبيس',e:'🐕',hp:[70,76],elite:1,p:[{a:12},{str:2,b:10},{a:6,x:2},{a:15}]},
 sphinx:{n:'أبو الهول',e:'🦁',hp:[84,90],elite:1,p:[{a:14},{b:14,a:6},{weak:2,vul:2},{a:9,x:2}]},
-apep:{n:'أبوفيس',e:'🐉',hp:[170,170],boss:1,p:[{a:14},{weak:2,a:6},{a:7,x:3},{b:20,str:3}]}};
+apep:{n:'أبوفيس',e:'🐉',hp:[150,150],boss:1,p:[{a:14},{weak:2,a:6},{a:7,x:3},{b:20,str:2}]}};
 const ENC={1:[['jackal','jackal'],['scarab'],['cobra'],['vulture','vulture']],2:[['mummy'],['cobra','vulture'],['jackal','scarab','vulture'],['mummy','jackal']]};
 const PLAN=[['B'],['B','?'],['B','S'],['E','B'],['R','?'],['B','B'],['E','S'],['B','?'],['R'],['X']];
 const NODE={B:['⚔️','معركة'],E:['💀','نخبة'],R:['🔥','معسكر'],S:['🛒','سوق'],'?':['❓','حدث'],X:['🐉','الزعيم']};
