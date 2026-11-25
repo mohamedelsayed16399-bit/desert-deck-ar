@@ -1,0 +1,221 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#1a1008"><title>كروت الصحرا | Desert Deck</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none}
+html,body{margin:0;height:100%;background:#1a1008;color:#f5e6c8;font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;overflow:hidden}
+body{background:radial-gradient(ellipse at 50% 0,#4a2f12,#1a1008 70%)}
+#scr{height:100%;max-width:560px;margin:auto;display:flex;flex-direction:column;padding:env(safe-area-inset-top) 8px env(safe-area-inset-bottom);position:relative;overflow:hidden}
+#scr.shk{animation:shk .25s}@keyframes shk{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+#bar{display:flex;gap:8px;align-items:center;padding:8px 2px;font-weight:700;font-size:14px;flex-wrap:wrap}
+#bar span{background:#2e1d0c;border:1px solid #6b4a1e;border-radius:999px;padding:4px 10px}#rel{display:flex;gap:2px;flex:1}#rel i{font-style:normal;font-size:18px}
+button{font:inherit;color:inherit;border:0;cursor:pointer}
+.sm{background:#3a2610;border:1px solid #8a5f26;border-radius:10px;padding:5px 10px;font-size:13px}
+.big{background:linear-gradient(135deg,#d97706,#b45309);border-radius:14px;padding:13px 24px;font-weight:800;font-size:16px;margin:6px;min-width:200px;box-shadow:0 3px 0 #6b3a06}.big.alt{background:#3a2610;border:1px solid #8a5f26;box-shadow:none}.big:active{transform:translateY(2px)}
+.center{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:10px;overflow:auto}
+.logo{font-size:64px}h1{margin:4px 0;font-size:34px;color:#fbbf24}h2{margin:6px 0;color:#fbbf24}.sub{color:#d6c39a;font-size:14px;line-height:1.7;max-width:340px}
+.mm{font-size:13px;color:#c9a96a;margin:8px 0 14px}.how{text-align:right;line-height:2;font-size:14px;max-width:360px;margin-bottom:14px}
+.map{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}
+.path{display:flex;gap:5px}.pd{width:26px;height:26px;border-radius:50%;background:#2e1d0c;border:1px solid #6b4a1e;display:grid;place-items:center;font-size:12px}.pd.dn{background:#6b4a1e}.pd.cu{background:#d97706;color:#000;font-weight:800}
+.opts{display:flex;gap:14px;margin:10px}.node{width:130px;height:130px;border-radius:22px;background:linear-gradient(160deg,#4a2f12,#2e1d0c);border:2px solid #b45309;font-size:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}.node span{font-size:14px;font-weight:700}
+.field{display:flex;flex:1;justify-content:space-around;align-items:center;min-height:215px;padding:6px 0;gap:4px}
+.en{position:relative;text-align:center;width:31%;max-width:150px;transition:transform .15s}.en.dead{opacity:0;pointer-events:none;transition:opacity .5s}.en.tgt{animation:tg .6s infinite alternate;filter:drop-shadow(0 0 8px #fbbf24)}@keyframes tg{to{transform:scale(1.07)}}
+.ei{height:24px;font-weight:800;font-size:15px;color:#fca5a5}.eem{font-size:64px;line-height:1.1}.en_n{font-size:12px;margin-bottom:3px}
+.hpb{position:relative;height:14px;background:#3b1111;border-radius:8px;overflow:hidden;border:1px solid #7f1d1d}.hpb i{position:absolute;inset:0 auto 0 0;background:linear-gradient(#ef4444,#b91c1c)}.hpb span{position:absolute;inset:0;font-size:10px;line-height:14px;font-weight:700}
+.stt{font-size:12px;min-height:16px;margin-top:2px}
+.flash{animation:fl .2s}@keyframes fl{50%{filter:brightness(3)}}
+.fx{position:absolute;left:50%;top:25%;font-weight:900;font-size:26px;animation:up .9s forwards;pointer-events:none;text-shadow:0 2px 4px #000}.fx.hit{color:#f87171}.fx.blk{color:#93c5fd}@keyframes up{to{transform:translate(-50%,-60px);opacity:0}}
+.pl{display:flex;justify-content:space-between;background:#2e1d0c;border:1px solid #6b4a1e;border-radius:12px;padding:8px 12px;font-weight:700;position:relative;margin:4px 0}
+.ctl{display:flex;align-items:center;gap:8px;padding:4px 0}.en_e{background:#1e3a8a;border-radius:50%;width:48px;height:48px;display:grid;place-items:center;font-weight:800;border:2px solid #60a5fa}.piles{flex:1;font-size:13px;text-align:center}
+.ctl .big{margin:0;min-width:0;padding:11px 16px}
+.hand{display:flex;gap:6px;overflow-x:auto;padding:14px 2px 12px;align-items:flex-end;min-height:160px}
+.card{position:relative;flex:0 0 86px;height:128px;border-radius:12px;padding:6px 5px;text-align:center;background:linear-gradient(170deg,#5b3a14,#2e1d0c);border:2px solid #b45309;display:flex;flex-direction:column;transition:transform .12s}
+.card.ta{border-color:#dc2626;background:linear-gradient(170deg,#5a1d1d,#2b0f0f)}.card.ts{border-color:#2563eb;background:linear-gradient(170deg,#1e3a6b,#0f1d36)}.card.tp{border-color:#a855f7;background:linear-gradient(170deg,#4c1d6b,#240f36)}
+.card.up{box-shadow:0 0 10px #4ade80}.card.dis{opacity:.45}.card.sel{transform:translateY(-14px);box-shadow:0 0 14px #fbbf24}
+.hand .card{flex:0 0 72px;height:122px;padding:5px 3px}.hand .cd{font-size:9.5px}.hand .cn{font-size:11px}.cc{position:absolute;top:-8px;right:-8px;width:24px;height:24px;border-radius:50%;background:#1e3a8a;border:2px solid #60a5fa;display:grid;place-items:center;font-size:13px}
+.cn{font-weight:800;font-size:12px;margin-top:4px}.ce{font-size:26px;margin:2px 0}.cd{font-size:10.5px;line-height:1.4;color:#f3e3c0}
+.grid,.choices{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;padding:8px;overflow:auto}.grid{flex:1;align-content:flex-start}.choices .card,.grid .card{flex:0 0 96px;height:140px}
+.ct{text-align:center}
+.relic{background:#2e1d0c;border:1px solid #fbbf24;border-radius:14px;padding:8px 12px;margin:8px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;font-size:20px}.relic small{font-size:11px;color:#d6c39a;width:100%}
+.shp{display:flex;flex-direction:column;align-items:center;gap:4px}.shp.sold{opacity:.3}.pr{background:#78350f}
+#toast{position:fixed;top:14px;left:50%;transform:translate(-50%,-80px);background:#fbbf24;color:#000;font-weight:800;padding:8px 16px;border-radius:999px;z-index:20;transition:transform .3s}#toast.on{transform:translate(-50%,0)}
+</style></head><body><div id="scr"></div><div id="toast"></div>
+<script>
+const $=id=>document.getElementById(id);
+const rnd=n=>Math.floor(Math.random()*n),pick=a=>a[rnd(a.length)];
+const sleep=ms=>new Promise(r=>setTimeout(r,FAST?0:ms));
+let FAST=false;
+const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=rnd(i+1);[a[i],a[j]]=[a[j],a[i]]}return a};
+// ---- cards: c cost, t type(a attack,s skill,p power), tg needs target, v values, u upgraded values, d desc(v), f effect(g,tgt,v)
+const CARDS={
+strike:{n:'ضربة',c:1,t:'a',tg:1,v:[6],u:[9],d:v=>`اضرب ${v[0]}`,f:(g,t,v)=>g.hit(t,v[0])},
+defend:{n:'درع',c:1,t:'s',v:[5],u:[8],d:v=>`درع ${v[0]}`,f:(g,t,v)=>g.blk(v[0])},
+bash:{n:'ضربة ساحقة',c:2,t:'a',tg:1,v:[8,2],u:[11,3],d:v=>`اضرب ${v[0]} + ضعف الدفاع ${v[1]}`,f:(g,t,v)=>{g.hit(t,v[0]);g.st(t,'vul',v[1])}},
+cleave:{n:'اكتساح',c:1,t:'a',v:[8],u:[11],d:v=>`اضرب الكل ${v[0]}`,f:(g,t,v)=>g.hitAll(v[0])},
+pommel:{n:'نصل الحارس',c:1,t:'a',tg:1,v:[9,1],u:[10,2],d:v=>`اضرب ${v[0]} واسحب ${v[1]}`,f:(g,t,v)=>{g.hit(t,v[0]);g.draw(v[1])}},
+shrug:{n:'هز الكتف',c:1,t:'s',v:[8,1],u:[11,1],d:v=>`درع ${v[0]} واسحب ${v[1]}`,f:(g,t,v)=>{g.blk(v[0]);g.draw(v[1])}},
+heavy:{n:'سيف ثقيل',c:2,t:'a',tg:1,v:[16],u:[22],d:v=>`اضرب ${v[0]}`,f:(g,t,v)=>g.hit(t,v[0])},
+twin:{n:'ضربتين',c:1,t:'a',tg:1,v:[5],u:[7],d:v=>`اضرب ${v[0]} مرتين`,f:(g,t,v)=>{g.hit(t,v[0]);g.hit(t,v[0])}},
+iron:{n:'موجة حديد',c:1,t:'a',tg:1,v:[6],u:[8],d:v=>`اضرب ${v[0]} ودرع ${v[0]}`,f:(g,t,v)=>{g.hit(t,v[0]);g.blk(v[0])}},
+adren:{n:'أدرينالين',c:0,t:'s',x:1,v:[2],u:[3],d:v=>`+1 طاقة، اسحب ${v[0]} (يختفي)`,f:(g,t,v)=>{g.en(1);g.draw(v[0])}},
+poison:{n:'سم الكوبرا',c:1,t:'a',tg:1,v:[5],u:[8],d:v=>`سمم ${v[0]}`,f:(g,t,v)=>g.st(t,'poi',v[0])},
+inflame:{n:'غضب الآلهة',c:1,t:'p',v:[2],u:[3],d:v=>`+${v[0]} قوة للأبد`,f:(g,t,v)=>g.st(g.P,'str',v[0])},
+offer:{n:'قربان',c:0,t:'s',x:1,v:[6,3],u:[5,3],d:v=>`اخسر ${v[0]} صحة، +2 طاقة، اسحب ${v[1]} (يختفي)`,f:(g,t,v)=>{g.lose(v[0]);g.en(2);g.draw(v[1])}},
+slam:{n:'ضربة الدرع',c:1,t:'a',tg:1,v:[0],u:[0],d:()=>`اضرب بقدر الدرع اللي معاك`,f:(g,t,v)=>g.hit(t,g.P.block)},
+upper:{n:'لكمة صاعدة',c:2,t:'a',tg:1,v:[13,1],u:[15,2],d:v=>`اضرب ${v[0]} + ضعف وإضعاف ${v[1]}`,f:(g,t,v)=>{g.hit(t,v[0]);g.st(t,'weak',v[1]);g.st(t,'vul',v[1])}},
+disarm:{n:'نزع السلاح',c:1,t:'s',tg:1,x:1,v:[2],u:[3],d:v=>`العدو يخسر ${v[0]} قوة (يختفي)`,f:(g,t,v)=>g.st(t,'str',-v[0])},
+breath:{n:'نفس التنين',c:2,t:'a',v:[12],u:[16],d:v=>`اضرب الكل ${v[0]}`,f:(g,t,v)=>g.hitAll(v[0])},
+pharaoh:{n:'درع الفرعون',c:2,t:'s',v:[16],u:[22],d:v=>`درع ${v[0]}`,f:(g,t,v)=>g.blk(v[0])},
+sneak:{n:'طعنة غادرة',c:0,t:'a',tg:1,v:[4],u:[7],d:v=>`اضرب ${v[0]}`,f:(g,t,v)=>g.hit(t,v[0])},
+sand:{n:'عاصفة رمل',c:1,t:'s',v:[2],u:[3],d:v=>`الكل ضعف ${v[0]} وإضعاف ${v[0]}`,f:(g,t,v)=>g.E().forEach(e=>{g.st(e,'vul',v[0]);g.st(e,'weak',v[0])})},
+renew:{n:'نبع الحياة',c:1,t:'s',x:1,v:[7],u:[11],d:v=>`اشفِ ${v[0]} (يختفي)`,f:(g,t,v)=>g.heal(v[0])},
+ward:{n:'تعويذة',c:1,t:'p',v:[4],u:[6],d:v=>`احصل على ${v[0]} درع كل دور`,f:(g,t,v)=>g.st(g.P,'ward',v[0])},
+};
+const RARE=['heavy','upper','breath','pharaoh','inflame','poison','ward','slam'];
+const COMMON=['cleave','pommel','shrug','twin','iron','adren','sneak','sand','offer','disarm','renew','strike','defend'];
+const startDeck=()=>['strike','strike','strike','strike','strike','defend','defend','defend','defend','bash'].map(id=>({id,u:0}));
+const cv=(c)=>c.u?CARDS[c.id].u:CARDS[c.id].v;
+const RELICS={ankh:['🏺','أنخ','اشفِ 6 بعد كل معركة'],scarab:['🪲','سكاراب الحظ','ابدأ كل معركة بـ 6 درع'],horus:['👁️','عين حورس','اسحب كارت زيادة كل دور'],ring:['💍','خاتم الدم','+20 صحة قصوى'],sun:['☀️','قرص الشمس','+1 طاقة كل دور'],purse:['👛','كيس الذهب','+60 دهب']};
+// ---- enemies
+const EN={
+jackal:{n:'ابن آوى',e:'🐺',hp:[12,15],p:[{a:5},{a:3,x:2},{a:7}]},
+scarab:{n:'جعران',e:'🪲',hp:[18,22],p:[{b:7},{a:9}]},
+cobra:{n:'كوبرا',e:'🐍',hp:[16,20],p:[{weak:1,a:5},{a:8}]},
+vulture:{n:'نسر',e:'🦅',hp:[13,16],p:[{a:4,x:2},{a:7},{b:5,a:3}]},
+mummy:{n:'مومياء',e:'🧟',hp:[34,40],p:[{a:9},{vul:2,b:6},{a:6,x:2}]},
+anubis:{n:'أنوبيس',e:'🐕',hp:[70,76],elite:1,p:[{a:12},{str:2,b:10},{a:6,x:2},{a:15}]},
+sphinx:{n:'أبو الهول',e:'🦁',hp:[84,90],elite:1,p:[{a:14},{b:14,a:6},{weak:2,vul:2},{a:9,x:2}]},
+apep:{n:'أبوفيس',e:'🐉',hp:[170,170],boss:1,p:[{a:14},{weak:2,a:6},{a:7,x:3},{b:20,str:3}]}};
+const ENC={1:[['jackal','jackal'],['scarab'],['cobra'],['vulture','vulture']],2:[['mummy'],['cobra','vulture'],['jackal','scarab','vulture'],['mummy','jackal']]};
+const PLAN=[['B'],['B','?'],['B','S'],['E','B'],['R','?'],['B','B'],['E','S'],['B','?'],['R'],['X']];
+const NODE={B:['⚔️','معركة'],E:['💀','نخبة'],R:['🔥','معسكر'],S:['🛒','سوق'],'?':['❓','حدث'],X:['🐉','الزعيم']};
+// ---- state
+let G=null,C=null,sel=null;
+const save=()=>{try{localStorage.setItem('dd_run',JSON.stringify(G))}catch(e){}};
+let meta={wins:0,best:0,runs:0};try{meta=Object.assign(meta,JSON.parse(localStorage.getItem('dd_meta')||'{}'))}catch(e){}
+const saveMeta=()=>{try{localStorage.setItem('dd_meta',JSON.stringify(meta))}catch(e){}};
+function newRun(){G={hp:70,max:70,gold:60,deck:startDeck(),relics:[],floor:0,plan:PLAN.map(p=>p.slice()),cleared:0,rm:0};C=null;save();showMap()}
+// ---- audio
+let AC=null,mute=localStorage.getItem('dd_mute')==='1';
+function au(){if(!AC){try{AC=new (window.AudioContext||window.webkitAudioContext)()}catch(e){}}if(AC&&AC.state==='suspended')AC.resume()}
+function beep(f,d,tp,v,f2){if(mute||!AC||FAST)return;try{const o=AC.createOscillator(),g=AC.createGain();o.type=tp||'sine';o.frequency.setValueAtTime(f,AC.currentTime);if(f2)o.frequency.exponentialRampToValueAtTime(f2,AC.currentTime+d);g.gain.setValueAtTime(v||.06,AC.currentTime);g.gain.exponentialRampToValueAtTime(.0001,AC.currentTime+d);o.connect(g);g.connect(AC.destination);o.start();o.stop(AC.currentTime+d)}catch(e){}}
+// ---- ui helpers
+const scr=()=>$('scr');
+function topBar(){return `<div id="bar"><span>❤️ ${G.hp}/${G.max}</span><span>🪙 ${G.gold}</span><span>🏛️ ${G.floor}/10</span><span id="rel">${G.relics.map(r=>`<i title="${RELICS[r][1]}">${RELICS[r][0]}</i>`).join('')}</span><button id="mb" class="sm">${mute?'🔇':'🔊'}</button></div>`}
+function bindTop(){const b=$('mb');if(b)b.onclick=()=>{mute=!mute;localStorage.setItem('dd_mute',mute?'1':'0');b.textContent=mute?'🔇':'🔊'}}
+function cardHTML(c,o={}){const d=CARDS[c.id],v=cv(c);return `<div class="card t${d.t}${c.u?' up':''}${o.dis?' dis':''}${o.sel?' sel':''}" data-i="${o.i}"><b class="cc">${d.c}</b><div class="cn">${d.n}${c.u?'+':''}</div><div class="ce">${d.t==='a'?'⚔️':d.t==='s'?'🛡️':'✨'}</div><div class="cd">${d.d(v)}</div></div>`}
+function toast(t){const e=$('toast');e.textContent=t;e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('on'),1800)}
+// ---- menu
+function showMenu(){let has=false;try{has=!!localStorage.getItem('dd_run')}catch(e){}
+ scr().innerHTML=`<div class="center"><div class="logo">🏺</div><h1>كروت الصحرا</h1><p class="sub">لعبة كروت روجلايك: ابني دِك، واهزم الحراس والنخبة، وواجه أبوفيس في آخر المعبد. لو مت بتبدأ من الأول!</p>
+ <div class="mm">🏆 انتصارات: ${meta.wins} &nbsp; 🏛️ أبعد طابق: ${meta.best} &nbsp; 🎮 محاولات: ${meta.runs}</div>
+ ${has?'<button class="big" id="cont">كمّل الرحلة ▶</button>':''}<button class="big ${has?'alt':''}" id="newr">رحلة جديدة</button><button class="big alt" id="how">إزاي تلعب؟</button></div>`;
+ $('newr').onclick=()=>{au();if(has&&!confirm('الرحلة القديمة هتتمسح. متأكد؟'))return;meta.runs++;saveMeta();newRun()};
+ if(has)$('cont').onclick=()=>{au();try{G=JSON.parse(localStorage.getItem('dd_run'));}catch(e){return newRun()}showMap()};
+ $('how').onclick=showHow}
+function showHow(){scr().innerHTML=`<div class="center"><h1 style="font-size:26px">إزاي تلعب</h1><div class="how">• كل دور معاك طاقة 3 وبتسحب 5 كروت.<br>• اضغط على كارت وبعدين على العدو لو بيحتاج هدف.<br>• الأيقونة فوق العدو بتقولك هيعمل إيه الدور الجاي: ⚔️ هجوم، 🛡️ درع، ⬆️ قوة، ☠️ إضعاف.<br>• الدرع بيمتص الضرر ويتصفّر كل دور.<br>• بعد كل معركة اختار كارت جديد، وفي المعسكر 🔥 اشفي أو طوّر كارت، وفي السوق 🛒 اشتري.<br>• 10 طوابق وآخرها أبوفيس 🐉.</div><button class="big" id="bk">فهمت</button></div>`;$('bk').onclick=showMenu}
+// ---- map
+function showMap(){save();if(G.floor>=10)return;const opts=G.plan[G.floor];
+ scr().innerHTML=topBar()+`<div class="map"><h2>الطابق ${G.floor+1}</h2><div class="path">${G.plan.map((p,i)=>`<span class="pd${i<G.floor?' dn':i===G.floor?' cu':''}">${i===9?'🐉':i+1}</span>`).join('')}</div><p class="sub">اختار طريقك</p><div class="opts">${opts.map((o,i)=>`<button class="node" data-o="${o}">${NODE[o][0]}<span>${NODE[o][1]}</span></button>`).join('')}</div><button class="sm" id="dk">🃏 الدِك (${G.deck.length})</button></div>`;bindTop();
+ scr().querySelectorAll('.node').forEach(b=>b.onclick=()=>{au();go(b.dataset.o)});$('dk').onclick=()=>showDeck(showMap)}
+function showDeck(back,pickFn,title){scr().innerHTML=topBar()+`<h2 class="ct">${title||'الدِك'}</h2><div class="grid">${G.deck.map((c,i)=>cardHTML(c,{i})).join('')}</div>${pickFn?'':'<button class="big alt" id="bk">رجوع</button>'}`;bindTop();
+ if(pickFn)scr().querySelectorAll('.card').forEach(el=>el.onclick=()=>pickFn(+el.dataset.i));else $('bk').onclick=back}
+function go(o){if(o==='B'||o==='E'||o==='X')startCombat(o);else if(o==='R')showRest();else if(o==='S')showShop();else showEvent()}
+function nextFloor(){G.floor++;G.cleared++;if(G.floor>meta.best){meta.best=G.floor;saveMeta()}if(G.floor>=10)return win();showMap()}
+// ---- combat
+function startCombat(kind){
+ let names;if(kind==='X')names=['apep'];else if(kind==='E')names=[pick(['anubis','sphinx'])];else names=pick(ENC[G.floor<4?1:2]);
+ const sc=1+G.floor*.03;
+ const en=names.map((k,i)=>{const d=EN[k],hp=Math.round((d.hp[0]+rnd(d.hp[1]-d.hp[0]+1))*(d.boss?1:sc));return{k,n:d.n,e:d.e,hp,max:hp,block:0,str:0,vul:0,weak:0,poi:0,t:0,d,elite:d.elite,boss:d.boss,intent:null}});
+ C={kind,en,P:{block:0,str:0,vul:0,weak:0,ward:0},draw:shuffle(G.deck.map(c=>({...c}))),hand:[],disc:[],exh:[],energy:3,turn:0,busy:false,over:false};
+ api.P=C.P;C.en.forEach(e=>setIntent(e));
+ if(G.relics.includes('scarab'))C.P.block+=6;
+ startTurn()}
+function E(){return C.en.filter(e=>e.hp>0)}
+const api={P:null,E,
+ calc(att,base,def){let v=base+(att.str||0);if(att.weak>0)v*=.75;if(def&&def.vul>0)v*=1.5;return Math.max(0,Math.floor(v))},
+ hit(t,n){const d=api.calc(C.P,n,t);dealt(t,d,true)},
+ hitAll(n){E().forEach(t=>dealt(t,api.calc(C.P,n,t),true))},
+ blk(n){C.P.block+=n;beep(300,.1,'triangle')},
+ draw(n){drawCards(n)},en(n){C.energy+=n},
+ st(t,k,n){t[k]=(t[k]||0)+n},
+ lose(n){G.hp=Math.max(1,G.hp-n)},heal(n){G.hp=Math.min(G.max,G.hp+n)}};
+function dealt(t,d,fromPlayer){const ab=Math.min(t.block,d);t.block-=ab;const r=d-ab;t.hp=Math.max(0,t.hp-r);fx(t,r?'-'+r:(ab?'🛡️':'0'),r?'hit':'blk');beep(r?180:260,.08,'square',.05)}
+function hurt(d){const ab=Math.min(C.P.block,d);C.P.block-=ab;const r=d-ab;G.hp=Math.max(0,G.hp-r);fx(null,r?'-'+r:'🛡️',r?'hit':'blk');if(r){beep(120,.2,'sawtooth',.07);$('scr').classList.add('shk');setTimeout(()=>$('scr').classList.remove('shk'),250)}}
+function fx(t,txt,cls){const el=t?document.querySelector(`[data-e="${C.en.indexOf(t)}"]`):$('pl');if(!el)return;const s=document.createElement('div');s.className='fx '+cls;s.textContent=txt;el.appendChild(s);setTimeout(()=>s.remove(),900);el.classList.add('flash');setTimeout(()=>el.classList.remove('flash'),200)}
+function setIntent(e){const p=e.d.p;e.intent=p[e.t%p.length];e.t++}
+function drawCards(n){for(let i=0;i<n;i++){if(!C.draw.length){if(!C.disc.length)return;C.draw=shuffle(C.disc);C.disc=[]}if(C.hand.length>=10){C.disc.push(C.draw.pop());continue}C.hand.push(C.draw.pop())}}
+function startTurn(){C.turn++;C.energy=3+(G.relics.includes('sun')?1:0);
+ if(C.turn>1)C.P.block=0;if(C.P.ward)C.P.block+=C.P.ward;
+ drawCards(5+(G.relics.includes('horus')?1:0));C.busy=false;sel=null;renderCombat()}
+function intentTxt(e){const i=e.intent;if(!i)return'';let s=[];if(i.a!==undefined)s.push('⚔️'+api.calc(e,i.a,C.P)+(i.x?'×'+i.x:''));if(i.b)s.push('🛡️'+i.b);if(i.str)s.push('⬆️');if(i.weak)s.push('☠️');if(i.vul)s.push('💢');return s.join(' ')}
+function renderCombat(){if(!C)return;
+ const P=C.P;
+ scr().innerHTML=topBar()+`<div class="field">${C.en.map((e,i)=>`<div class="en${e.hp<=0?' dead':''}${sel!==null&&e.hp>0?' tgt':''}" data-e="${i}"><div class="ei">${e.hp>0?intentTxt(e):''}</div><div class="eem">${e.e}</div><div class="en_n">${e.n}</div><div class="hpb"><i style="width:${Math.max(0,e.hp/e.max*100)}%"></i><span>${Math.max(0,e.hp)}/${e.max}</span></div><div class="stt">${e.block?'🛡️'+e.block+' ':''}${e.str?'⬆️'+e.str+' ':''}${e.vul>0?'💢'+e.vul+' ':''}${e.weak>0?'☠️'+e.weak+' ':''}${e.poi>0?'🧪'+e.poi:''}</div></div>`).join('')}</div>
+ <div class="pl" id="pl"><span>🧙 أنت ❤️${G.hp}/${G.max}</span><span>${P.block?'🛡️'+P.block+' ':''}${P.str?'⬆️'+P.str+' ':''}${P.vul>0?'💢'+P.vul+' ':''}${P.weak>0?'☠️'+P.weak:''}</span></div>
+ <div class="ctl"><div class="en_e">⚡ ${C.energy}/${3+(G.relics.includes('sun')?1:0)}</div><div class="piles">📚${C.draw.length} 🗑️${C.disc.length}</div><button class="big" id="end">إنهاء الدور</button></div>
+ <div class="hand">${C.hand.map((c,i)=>cardHTML(c,{i,dis:CARDS[c.id].c>C.energy,sel:sel===i})).join('')}</div>`;bindTop();
+ $('end').onclick=endTurn;
+ scr().querySelectorAll('.hand .card').forEach(el=>el.onclick=()=>clickCard(+el.dataset.i));
+ scr().querySelectorAll('.en').forEach(el=>el.onclick=()=>clickEnemy(+el.dataset.e))}
+function clickCard(i){au();if(C.busy||C.over)return;const c=C.hand[i],d=CARDS[c.id];if(d.c>C.energy){toast('طاقة مش كفاية');beep(120,.1,'square');return}
+ if(d.tg){const al=E();if(al.length===1){play(i,al[0])}else{sel=sel===i?null:i;renderCombat()}}else play(i,null)}
+function clickEnemy(ei){if(sel===null||C.busy||C.over)return;const e=C.en[ei];if(e.hp<=0)return;play(sel,e)}
+function play(i,t){const c=C.hand[i],d=CARDS[c.id];C.energy-=d.c;C.hand.splice(i,1);sel=null;
+ beep(d.t==='a'?420:300,.1,'triangle');d.f(api,t,cv(c));(d.x?C.exh:C.disc).push(c);
+ if(!E().length){C.over=true;renderCombat();setTimeout(combatWon,FAST?0:600);return}
+ renderCombat()}
+async function endTurn(){if(C.busy||C.over)return;C.busy=true;sel=null;C.disc.push(...C.hand);C.hand=[];renderCombat();
+ C.P.vul=Math.max(0,C.P.vul-1);C.P.weak=Math.max(0,C.P.weak-1);
+ for(const e of C.en){if(e.hp<=0)continue;await sleep(380);e.block=0;
+  if(e.poi>0){dealt(e,e.poi,false);e.poi--;renderCombat();if(e.hp<=0){continue}}
+  const i=e.intent;
+  if(i.b)e.block+=i.b;if(i.str)e.str+=i.str;
+  if(i.weak)C.P.weak+=i.weak;if(i.vul)C.P.vul+=i.vul;
+  if(i.a!==undefined){for(let k=0;k<(i.x||1);k++){hurt(api.calc(e,i.a,C.P));await sleep(180)}}
+  e.vul=Math.max(0,e.vul-1);e.weak=Math.max(0,e.weak-1);
+  if(e.hp>0)setIntent(e);renderCombat();
+  if(G.hp<=0){return die()}}
+ if(!E().length){C.over=true;return combatWon()}
+ startTurn()}
+function combatWon(){const k=C.kind;let gold=10+rnd(12);if(k==='E')gold+=25;if(k==='X')gold+=50;G.gold+=gold;if(G.relics.includes('ankh'))G.hp=Math.min(G.max,G.hp+6);
+ C=null;G.P=null;save();if(k==='X'){return win()}
+ showReward(gold,k==='E')}
+function showReward(gold,elite){const pool=elite?RARE.concat(COMMON.slice(0,4)):COMMON.concat(RARE.slice(0,3));const ch=shuffle(pool.slice()).filter((v,i,a)=>a.indexOf(v)===i).slice(0,3).map(id=>({id,u:0}));
+ let relic=null;if(elite){const av=Object.keys(RELICS).filter(r=>!G.relics.includes(r));if(av.length)relic=pick(av)}
+ scr().innerHTML=topBar()+`<div class="center"><h2>🎉 انتصرت!</h2><p class="sub">+${gold} 🪙 دهب${G.relics.includes('ankh')?' و +6 صحة':''}</p>${relic?`<div class="relic" id="rl">${RELICS[relic][0]} <b>${RELICS[relic][1]}</b><small>${RELICS[relic][2]}</small><button class="sm" id="rlb">خدها</button></div>`:''}<p class="sub">اختار كارت جديد للدِك</p><div class="choices">${ch.map((c,i)=>cardHTML(c,{i})).join('')}</div><button class="big alt" id="skip">تخطي</button></div>`;bindTop();
+ scr().querySelectorAll('.choices .card').forEach(el=>el.onclick=()=>{G.deck.push(ch[+el.dataset.i]);nextFloor()});
+ $('skip').onclick=()=>nextFloor();
+ if(relic)$('rlb').onclick=()=>{addRelic(relic);$('rl').remove()}}
+function addRelic(r){G.relics.push(r);if(r==='ring'){G.max+=20;G.hp+=20}if(r==='purse')G.gold+=60;toast(RELICS[r][1]);save();bindTop()}
+function die(){C=null;try{localStorage.removeItem('dd_run')}catch(e){}if(G.floor>meta.best){meta.best=G.floor;saveMeta()}
+ scr().innerHTML=`<div class="center"><div class="logo">💀</div><h1>سقطت في الطابق ${G.floor+1}</h1><p class="sub">دِكك فيه ${G.deck.length} كارت، ومعاك ${G.relics.length} أثر. جرب تاني بدِك مختلف!</p><button class="big" id="again">رحلة جديدة</button><button class="big alt" id="mn">القايمة</button></div>`;
+ $('again').onclick=()=>{meta.runs++;saveMeta();newRun()};$('mn').onclick=showMenu}
+function win(){meta.wins++;meta.best=10;saveMeta();try{localStorage.removeItem('dd_run')}catch(e){}
+ scr().innerHTML=`<div class="center"><div class="logo">👑</div><h1>هزمت أبوفيس!</h1><p class="sub">خلصت المعبد بدِك فيه ${G.deck.length} كارت وبـ ${G.hp} صحة. انتصارات: ${meta.wins}</p><button class="big" id="again">رحلة جديدة</button><button class="big alt" id="mn">القايمة</button></div>`;
+ $('again').onclick=()=>{meta.runs++;saveMeta();newRun()};$('mn').onclick=showMenu}
+// ---- rest / shop / event
+function showRest(){scr().innerHTML=topBar()+`<div class="center"><div class="logo">🔥</div><h2>معسكر</h2><p class="sub">ارتاح أو طوّر كارت</p><button class="big" id="rh">😴 اشفِ ${Math.floor(G.max*.3)} صحة</button><button class="big alt" id="ru">🔨 طوّر كارت</button></div>`;bindTop();
+ $('rh').onclick=()=>{G.hp=Math.min(G.max,G.hp+Math.floor(G.max*.3));nextFloor()};
+ $('ru').onclick=()=>{if(!G.deck.some(c=>!c.u&&!['slam'].includes(c.id)))return toast('كله متطور');showDeck(null,i=>{const c=G.deck[i];if(c.u)return toast('متطور بالفعل');c.u=1;nextFloor()},'اختار كارت للتطوير')}}
+function showShop(){const price=id=>RARE.includes(id)?85+rnd(20):45+rnd(20);
+ if(!G.shop||G.shopFloor!==G.floor){G.shopFloor=G.floor;G.shop={cards:shuffle(COMMON.concat(RARE).filter((v,i,a)=>a.indexOf(v)===i)).slice(0,5).map(id=>({id,p:price(id),sold:0})),relic:null};const av=Object.keys(RELICS).filter(r=>!G.relics.includes(r));if(av.length)G.shop.relic={id:pick(av),p:130+rnd(40),sold:0}}
+ const S=G.shop,rmP=60+25*G.rm;
+ scr().innerHTML=topBar()+`<div class="center" style="justify-content:flex-start"><h2>🛒 السوق</h2><div class="choices">${S.cards.map((c,i)=>`<div class="shp${c.sold?' sold':''}" data-s="${i}">${cardHTML({id:c.id,u:0},{i})}<button class="sm pr">🪙 ${c.p}</button></div>`).join('')}</div>
+ ${S.relic?`<div class="relic">${RELICS[S.relic.id][0]} <b>${RELICS[S.relic.id][1]}</b><small>${RELICS[S.relic.id][2]}</small><button class="sm" id="br" ${S.relic.sold?'disabled':''}>🪙 ${S.relic.p}</button></div>`:''}
+ <button class="big alt" id="rm">🗑️ احذف كارت (🪙 ${rmP})</button><button class="big alt" id="heal">❤️ اشفِ 15 (🪙 40)</button><button class="big" id="lv">كمّل ▶</button></div>`;bindTop();
+ scr().querySelectorAll('.shp').forEach(el=>el.onclick=()=>{const c=S.cards[+el.dataset.s];if(c.sold)return;if(G.gold<c.p)return toast('دهب مش كفاية');G.gold-=c.p;c.sold=1;G.deck.push({id:c.id,u:0});save();beep(600,.1,'triangle');showShop()});
+ if(S.relic)$('br').onclick=()=>{if(S.relic.sold)return;if(G.gold<S.relic.p)return toast('دهب مش كفاية');G.gold-=S.relic.p;S.relic.sold=1;addRelic(S.relic.id);showShop()};
+ $('rm').onclick=()=>{if(G.gold<rmP)return toast('دهب مش كفاية');if(G.deck.length<=5)return toast('الدِك صغير');showDeck(null,i=>{G.gold-=rmP;G.rm++;G.deck.splice(i,1);save();showShop()},'اختار كارت للحذف')};
+ $('heal').onclick=()=>{if(G.gold<40)return toast('دهب مش كفاية');if(G.hp>=G.max)return toast('صحتك كاملة');G.gold-=40;G.hp=Math.min(G.max,G.hp+15);showShop()};
+ $('lv').onclick=()=>{G.shop=null;nextFloor()}}
+function showEvent(){const ev=pick([
+ {t:'بئر قديم',e:'⛲',x:'لقيت بئر مية صافية في المعبد.',o:[['اشرب (+12 صحة)',()=>{G.hp=Math.min(G.max,G.hp+12)}],['خد العملات اللي في قاعه (+35 🪙 و -6 صحة)',()=>{G.gold+=35;G.hp=Math.max(1,G.hp-6)}]]},
+ {t:'تمثال ملعون',e:'🗿',x:'تمثال بعيون بتلمع. لو لمسته يمكن يدّيك قوة.',o:[['المسه (-10 صحة، أثر عشوائي)',()=>{G.hp=Math.max(1,G.hp-10);const av=Object.keys(RELICS).filter(r=>!G.relics.includes(r));if(av.length)addRelic(pick(av))}],['امشي','']]},
+ {t:'تاجر غامض',e:'🧙‍♂️',x:'تاجر بيعرض عليك كارت نادر بـ 40 دهب.',o:[['اشتري (-40 🪙)',()=>{if(G.gold>=40){G.gold-=40;G.deck.push({id:pick(RARE),u:0})}else toast('دهب مش كفاية')}],['امشي','']]},
+ {t:'مذبح',e:'🛕',x:'مذبح قديم يطلب قربان من دِكك.',o:[['احذف كارت من الدِك',()=>'rm'],['اتركه','']]}]);
+ scr().innerHTML=topBar()+`<div class="center"><div class="logo">${ev.e}</div><h2>${ev.t}</h2><p class="sub">${ev.x}</p>${ev.o.map((o,i)=>`<button class="big alt" data-o="${i}">${o[0]}</button>`).join('')}</div>`;bindTop();
+ scr().querySelectorAll('[data-o]').forEach(b=>b.onclick=()=>{const fn=ev.o[+b.dataset.o][1];let r='';if(fn)r=fn();if(r==='rm'){if(G.deck.length<=5)return nextFloor();return showDeck(null,i=>{G.deck.splice(i,1);nextFloor()},'اختار كارت للحذف')}nextFloor()})}
+// test hooks
+window.__dd={get G(){return G},get C(){return C},setFast(v){FAST=v},api,newRun,showMenu,CARDS,clickCard,clickEnemy,endTurn,get sel(){return sel},E,get scr(){return scr().innerHTML.length}};
+showMenu();
+
+</script></body></html>
