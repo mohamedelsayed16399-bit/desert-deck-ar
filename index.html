@@ -68,12 +68,15 @@ sneak:{n:'طعنة غادرة',c:0,t:'a',tg:1,v:[4],u:[7],d:v=>`اضرب ${v[0]}
 sand:{n:'عاصفة رمل',c:1,t:'s',v:[2],u:[3],d:v=>`الكل ضعف ${v[0]} وإضعاف ${v[0]}`,f:(g,t,v)=>g.E().forEach(e=>{g.st(e,'vul',v[0]);g.st(e,'weak',v[0])})},
 renew:{n:'نبع الحياة',c:1,t:'s',x:1,v:[7],u:[11],d:v=>`اشفِ ${v[0]} (يختفي)`,f:(g,t,v)=>g.heal(v[0])},
 ward:{n:'تعويذة',c:1,t:'p',v:[4],u:[6],d:v=>`احصل على ${v[0]} درع كل دور`,f:(g,t,v)=>g.st(g.P,'ward',v[0])},
+fury:{n:'جنون المعركة',c:2,t:'a',tg:1,v:[7],u:[10],d:v=>`اضرب ${v[0]} 3 مرات`,f:(g,t,v)=>{g.hit(t,v[0]);g.hit(t,v[0]);g.hit(t,v[0])}},
+mirror:{n:'مرآة النيل',c:1,t:'s',v:[7,3],u:[10,4],d:v=>`درع ${v[0]} وضعف للكل`,f:(g,t,v)=>{g.blk(v[0]);g.E().forEach(e=>g.st(e,'vul',1))}},
+plague:{n:'وباء الجراد',c:2,t:'a',v:[4],u:[6],d:v=>`سمم الكل ${v[0]}`,f:(g,t,v)=>g.E().forEach(e=>g.st(e,'poi',v[0]))},
 };
-const RARE=['heavy','upper','breath','pharaoh','inflame','poison','ward','slam'];
-const COMMON=['cleave','pommel','shrug','twin','iron','adren','sneak','sand','offer','disarm','renew','strike','defend'];
+const RARE=['heavy','upper','breath','pharaoh','inflame','poison','ward','slam','fury','plague'];
+const COMMON=['cleave','pommel','shrug','twin','iron','adren','sneak','sand','offer','disarm','renew','strike','defend','mirror'];
 const startDeck=()=>['strike','strike','strike','strike','strike','defend','defend','defend','defend','bash'].map(id=>({id,u:0}));
 const cv=(c)=>c.u?CARDS[c.id].u:CARDS[c.id].v;
-const RELICS={ankh:['🏺','أنخ','اشفِ 6 بعد كل معركة'],scarab:['🪲','سكاراب الحظ','ابدأ كل معركة بـ 6 درع'],horus:['👁️','عين حورس','اسحب كارت زيادة كل دور'],ring:['💍','خاتم الدم','+20 صحة قصوى'],sun:['☀️','قرص الشمس','+1 طاقة كل دور'],purse:['👛','كيس الذهب','+60 دهب']};
+const RELICS={ankh:['🏺','أنخ','اشفِ 6 بعد كل معركة'],scarab:['🪲','سكاراب الحظ','ابدأ كل معركة بـ 6 درع'],horus:['👁️','عين حورس','اسحب كارت زيادة كل دور'],ring:['💍','خاتم الدم','+20 صحة قصوى'],sun:['☀️','قرص الشمس','+1 طاقة كل دور'],papyrus:['📜','بردية الحكمة','ابدأ كل معركة بـ +1 قوة'],fang:['🐍','ناب الكوبرا','ابدأ كل معركة والأعداء مسممين 3'],purse:['👛','كيس الذهب','+60 دهب']};
 // ---- enemies
 const EN={
 jackal:{n:'ابن آوى',e:'🐺',hp:[12,15],p:[{a:5},{a:3,x:2},{a:7}]},
@@ -127,7 +130,7 @@ function startCombat(kind){
  const en=names.map((k,i)=>{const d=EN[k],hp=Math.round((d.hp[0]+rnd(d.hp[1]-d.hp[0]+1))*(d.boss?1:sc));return{k,n:d.n,e:d.e,hp,max:hp,block:0,str:0,vul:0,weak:0,poi:0,t:0,d,elite:d.elite,boss:d.boss,intent:null}});
  C={kind,en,P:{block:0,str:0,vul:0,weak:0,ward:0},draw:shuffle(G.deck.map(c=>({...c}))),hand:[],disc:[],exh:[],energy:3,turn:0,busy:false,over:false};
  api.P=C.P;C.en.forEach(e=>setIntent(e));
- if(G.relics.includes('scarab'))C.P.block+=6;
+ if(G.relics.includes('scarab'))C.P.block+=6;if(G.relics.includes('papyrus'))C.P.str+=1;if(G.relics.includes('fang'))C.en.forEach(e=>e.poi+=3);
  startTurn()}
 function E(){return C.en.filter(e=>e.hp>0)}
 const api={P:null,E,
