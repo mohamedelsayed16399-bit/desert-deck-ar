@@ -45,6 +45,12 @@ button{font:inherit;color:inherit;border:0;cursor:pointer}
 .en.shk{animation:shk .3s}@keyframes shk{25%{transform:translateX(-7px) rotate(-3deg)}75%{transform:translateX(7px) rotate(3deg)}}
 .field{background:linear-gradient(#0000 40%,#2a1a0a88),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 120' preserveAspectRatio='none'%3E%3Cpath d='M0 120 L70 70 L130 120Z M90 120 L170 40 L250 120Z M230 120 L300 80 L370 120Z' fill='%23351f0d'/%3E%3C/svg%3E") bottom/100% 60% no-repeat;border-radius:12px}
 .logo svg{width:90px;height:90px}
+
+.hand{gap:4px;padding-inline:4px}.hand .card{flex:1 1 0!important;max-width:80px;min-width:56px}
+.pav{width:30px;height:32px;vertical-align:middle;margin-inline-end:4px}
+.en.boss{width:62%;max-width:240px}.en.boss .art{width:170px;height:170px;filter:drop-shadow(0 0 14px #dc2626)}.en.boss .hpb{height:22px}
+.field.f1{background-color:#2a140a33}.field.f2{background-color:#3a0f0a44}.field.f3{background-color:#4a0a0a66}
+.field.f3 .art{filter:drop-shadow(0 0 6px #dc2626aa)}
 </style></head><body><div id="scr"></div><div id="toast"></div>
 <script>
 // ---- drawn art (inline SVG)
@@ -190,8 +196,8 @@ function startTurn(){C.turn++;C.energy=3+(G.relics.includes('sun')?1:0);
 function intentTxt(e){const i=e.intent;if(!i)return'';let s=[];if(i.a!==undefined)s.push('⚔️'+api.calc(e,i.a,C.P)+(i.x?'×'+i.x:''));if(i.b)s.push('🛡️'+i.b);if(i.str)s.push('⬆️');if(i.weak)s.push('☠️');if(i.vul)s.push('💢');return s.join(' ')}
 function renderCombat(){if(!C)return;
  const P=C.P;
- scr().innerHTML=topBar()+`<div class="field">${C.en.map((e,i)=>`<div class="en${e.hp<=0?' dead':''}${sel!==null&&e.hp>0?' tgt':''}" data-e="${i}"><div class="ei">${e.hp>0?intentTxt(e):''}</div><div class="eem">${enArt(e.k)}</div><div class="en_n">${e.n}</div><div class="hpb"><i style="width:${Math.max(0,e.hp/e.max*100)}%"></i><span>${Math.max(0,e.hp)}/${e.max}</span></div><div class="stt">${e.block?'🛡️'+e.block+' ':''}${e.str?'⬆️'+e.str+' ':''}${e.vul>0?'💢'+e.vul+' ':''}${e.weak>0?'☠️'+e.weak+' ':''}${e.poi>0?'🧪'+e.poi:''}</div></div>`).join('')}</div>
- <div class="pl" id="pl"><span>🧙 أنت ❤️${G.hp}/${G.max}</span><span>${P.block?'🛡️'+P.block+' ':''}${P.str?'⬆️'+P.str+' ':''}${P.vul>0?'💢'+P.vul+' ':''}${P.weak>0?'☠️'+P.weak:''}</span></div>
+ scr().innerHTML=topBar()+`<div class="field f${Math.min(3,Math.floor(G.floor/3))}">${C.en.map((e,i)=>`<div class="en${e.boss?' boss':''}${e.hp<=0?' dead':''}${sel!==null&&e.hp>0?' tgt':''}" data-e="${i}"><div class="ei">${e.hp>0?intentTxt(e):''}</div><div class="eem">${enArt(e.k)}</div><div class="en_n">${e.n}</div><div class="hpb"><i style="width:${Math.max(0,e.hp/e.max*100)}%"></i><span>${Math.max(0,e.hp)}/${e.max}</span></div><div class="stt">${e.block?'🛡️'+e.block+' ':''}${e.str?'⬆️'+e.str+' ':''}${e.vul>0?'💢'+e.vul+' ':''}${e.weak>0?'☠️'+e.weak+' ':''}${e.poi>0?'🧪'+e.poi:''}</div></div>`).join('')}</div>
+ <div class="pl" id="pl"><span><svg viewBox="0 0 44 46" class="pav"><path d="M8 44 L10 24 Q22 16 34 24 L36 44Z" fill="#1e3a8a"/><path d="M12 14 L22 4 L32 14 L30 28 L14 28Z" fill="#fbbf24"/><path d="M14 14 H30 V20 H14Z" fill="#1c1917"/><circle cx="18" cy="17" r="1.6" fill="#fde047"/><circle cx="26" cy="17" r="1.6" fill="#fde047"/><path d="M10 14 L14 30 M34 14 L30 30" stroke="#1e3a8a" stroke-width="4"/><path d="M14 36 H30" stroke="#fbbf24" stroke-width="3"/></svg> أنت ❤️${G.hp}/${G.max}</span><span>${P.block?'🛡️'+P.block+' ':''}${P.str?'⬆️'+P.str+' ':''}${P.vul>0?'💢'+P.vul+' ':''}${P.weak>0?'☠️'+P.weak:''}</span></div>
  <div class="ctl"><div class="en_e">⚡ ${C.energy}/${3+(G.relics.includes('sun')?1:0)}</div><div class="piles">📚${C.draw.length} 🗑️${C.disc.length}</div><button class="big" id="end">إنهاء الدور</button></div>
  <div class="hand">${C.hand.map((c,i)=>cardHTML(c,{i,dis:CARDS[c.id].c>C.energy,sel:sel===i})).join('')}</div>`;bindTop();
  $('end').onclick=endTurn;
