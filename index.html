@@ -37,8 +37,42 @@ button{font:inherit;color:inherit;border:0;cursor:pointer}
 .relic{background:#2e1d0c;border:1px solid #fbbf24;border-radius:14px;padding:8px 12px;margin:8px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;font-size:20px}.relic small{font-size:11px;color:#d6c39a;width:100%}
 .shp{display:flex;flex-direction:column;align-items:center;gap:4px}.shp.sold{opacity:.3}.pr{background:#78350f}
 #toast{position:fixed;top:14px;left:50%;transform:translate(-50%,-80px);background:#fbbf24;color:#000;font-weight:800;padding:8px 16px;border-radius:999px;z-index:20;transition:transform .3s}#toast.on{transform:translate(-50%,0)}
+
+.art{width:112px;height:112px;margin:0 auto;filter:drop-shadow(0 4px 4px #000a);animation:bob 2.4s ease-in-out infinite}.art svg{width:100%;height:100%}.en:nth-child(2) .art{animation-delay:.5s}.en:nth-child(3) .art{animation-delay:1s}@keyframes bob{50%{transform:translateY(-4px)}}
+.eem{font-size:0}.ca{width:40px;height:40px}.card .ce{font-size:0;height:42px;display:grid;place-items:center}
+.card{box-shadow:inset 0 0 0 2px #0004,0 3px 6px #0008}.card.ta{background:linear-gradient(170deg,#7f2a14,#331208)}.card.ts{background:linear-gradient(170deg,#1f4a7a,#0e2238)}.card.tp{background:linear-gradient(170deg,#6b4a0f,#2e1d0a)}
+.slash{position:absolute;left:10%;top:15%;width:80%;height:70%;pointer-events:none;background:linear-gradient(115deg,transparent 42%,#fff 48%,#fde047 52%,transparent 58%);animation:sl .35s ease-out forwards}@keyframes sl{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0);opacity:0}}
+.en.shk{animation:shk .3s}@keyframes shk{25%{transform:translateX(-7px) rotate(-3deg)}75%{transform:translateX(7px) rotate(3deg)}}
+.field{background:linear-gradient(#0000 40%,#2a1a0a88),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 120' preserveAspectRatio='none'%3E%3Cpath d='M0 120 L70 70 L130 120Z M90 120 L170 40 L250 120Z M230 120 L300 80 L370 120Z' fill='%23351f0d'/%3E%3C/svg%3E") bottom/100% 60% no-repeat;border-radius:12px}
+.logo svg{width:90px;height:90px}
 </style></head><body><div id="scr"></div><div id="toast"></div>
 <script>
+// ---- drawn art (inline SVG)
+const SV=(w,h,b)=>`<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">${b}</svg>`;
+const EYE=(x,y,c='#fde047')=>`<ellipse cx="${x}" cy="${y}" rx="4" ry="3" fill="${c}"/><circle cx="${x}" cy="${y}" r="1.4" fill="#111"/>`;
+const ART={
+jackal:SV(100,100,`<path d="M25 85 L30 45 L40 20 L47 42 L60 42 L67 20 L75 45 L78 85 Z" fill="#3b2f2a"/><path d="M38 62 Q50 95 62 62 Q50 50 38 62Z" fill="#7c5a3c"/><circle cx="50" cy="72" r="4" fill="#111"/>${EYE(40,52)}${EYE(60,52)}<path d="M45 80 L50 90 L55 80" fill="#f5f5f4"/>`),
+scarab:SV(100,100,`<ellipse cx="50" cy="58" rx="30" ry="32" fill="#1d4ed8"/><path d="M50 26 V90" stroke="#0b1e5b" stroke-width="3"/><ellipse cx="50" cy="28" rx="13" ry="10" fill="#0f2d8a"/><path d="M22 50 L6 40M22 62 L5 66M24 76 L10 90M78 50 L94 40M78 62 L95 66M76 76 L90 90" stroke="#0b1e5b" stroke-width="4" stroke-linecap="round"/><path d="M40 22 L34 8M60 22 L66 8" stroke="#0b1e5b" stroke-width="3"/>${EYE(44,28,'#f87171')}${EYE(56,28,'#f87171')}<ellipse cx="38" cy="50" rx="6" ry="12" fill="#60a5fa" opacity=".35"/>`),
+cobra:SV(100,100,`<path d="M20 95 Q10 70 40 72 Q70 74 55 50 L40 30 Q50 8 60 30 L70 28 Q82 12 78 40 Q70 62 78 80 Q80 95 60 95Z" fill="#15803d"/><path d="M42 30 Q50 6 58 30 Q50 46 42 30Z" fill="#166534"/>${EYE(46,26,'#fde047')}${EYE(56,26,'#fde047')}<path d="M50 40 L50 50 M50 50 L46 56 M50 50 L54 56" stroke="#dc2626" stroke-width="2" fill="none"/><path d="M40 78 L48 74 L56 78" stroke="#bbf7d0" stroke-width="2" fill="none"/>`),
+vulture:SV(100,100,`<path d="M50 20 Q70 20 68 42 Q62 60 50 70 Q38 60 32 42 Q30 20 50 20Z" fill="#44403c"/><path d="M50 62 Q10 40 2 80 Q30 70 46 82ZM50 62 Q90 40 98 80 Q70 70 54 82Z" fill="#292524"/><path d="M42 40 Q50 54 58 40 L50 62Z" fill="#fbbf24"/>${EYE(42,32,'#ef4444')}${EYE(58,32,'#ef4444')}<path d="M40 12 Q50 2 60 12" stroke="#d6d3d1" stroke-width="5" fill="none"/>`),
+mummy:SV(100,100,`<rect x="26" y="14" width="48" height="80" rx="18" fill="#d6c7a3"/><path d="M26 34 L74 26M26 46 L74 40M28 58 L72 54M30 70 L70 68M32 82 L68 80" stroke="#a89468" stroke-width="3"/><rect x="34" y="30" width="32" height="12" fill="#1c1917"/>${EYE(43,36,'#4ade80')}${EYE(57,36,'#4ade80')}<path d="M72 60 Q92 66 86 84" stroke="#d6c7a3" stroke-width="5" fill="none"/>`),
+anubis:SV(100,100,`<path d="M28 94 L34 56 L26 14 L42 36 H58 L74 14 L66 56 L72 94Z" fill="#111827"/><path d="M34 56 L66 56 L66 66 L34 66Z" fill="#fbbf24"/><path d="M26 14 L42 36 L34 40Z" fill="#fbbf24"/>${EYE(42,46,'#fbbf24')}${EYE(58,46,'#fbbf24')}<path d="M44 58 Q50 66 56 58" stroke="#f5f5f4" stroke-width="2" fill="none"/><path d="M80 20 V90" stroke="#fbbf24" stroke-width="3"/><circle cx="80" cy="18" r="6" fill="none" stroke="#fbbf24" stroke-width="3"/>`),
+sphinx:SV(100,100,`<path d="M4 90 Q4 60 30 62 L40 40 Q50 10 64 40 L68 62 L96 66 L96 90Z" fill="#c9a24a"/><path d="M38 40 Q50 8 66 40 L60 62 L44 62Z" fill="#e0b85a"/><path d="M34 30 L50 8 L70 30 L74 56 L62 40 L38 40 L28 56Z" fill="#1e3a8a"/>${EYE(46,44,'#111')}${EYE(58,44,'#111')}<path d="M48 54 Q52 58 56 54" stroke="#7c4a12" stroke-width="2" fill="none"/>`),
+apep:SV(100,100,`<path d="M4 90 Q-4 50 28 56 Q50 60 40 32 Q36 10 62 12 Q92 14 84 40 Q80 60 62 52 Q50 50 56 70 Q64 94 30 96Z" fill="#7f1d1d"/><path d="M62 12 Q92 14 84 40 L70 34Z" fill="#450a0a"/>${EYE(66,24,'#fbbf24')}<path d="M80 30 L96 30 M80 34 L92 40" stroke="#dc2626" stroke-width="2"/><path d="M20 78 L30 70M34 86 L44 76M18 62 L28 56" stroke="#fca5a5" stroke-width="2"/><path d="M62 8 L58 -2 M70 9 L74 -2" stroke="#fbbf24" stroke-width="3"/>`)
+};
+const IC={
+sword:'<path d="M36 4 L40 8 L18 32 L12 26Z" fill="#e5e7eb" stroke="#475569" stroke-width="1.5"/><path d="M8 24 L20 36" stroke="#fbbf24" stroke-width="4" stroke-linecap="round"/><path d="M14 30 L6 40" stroke="#92400e" stroke-width="5" stroke-linecap="round"/>',
+shield:'<path d="M22 4 L38 10 V24 Q38 36 22 42 Q6 36 6 24 V10Z" fill="#3b82f6" stroke="#bfdbfe" stroke-width="2"/><path d="M22 10 V36 M12 22 H32" stroke="#bfdbfe" stroke-width="2"/>',
+blast:'<path d="M22 2 L27 16 L42 12 L31 24 L40 38 L24 31 L14 44 L14 28 L2 22 L16 17Z" fill="#f59e0b" stroke="#b45309"/><circle cx="22" cy="24" r="6" fill="#fde68a"/>',
+poison:'<path d="M22 4 Q36 22 36 30 A14 14 0 0 1 8 30 Q8 22 22 4Z" fill="#22c55e" stroke="#14532d" stroke-width="2"/><circle cx="17" cy="30" r="3" fill="#bbf7d0"/><circle cx="27" cy="26" r="2" fill="#bbf7d0"/>',
+power:'<circle cx="22" cy="14" r="9" fill="none" stroke="#fbbf24" stroke-width="4"/><path d="M22 23 V42 M12 30 H32" stroke="#fbbf24" stroke-width="4" stroke-linecap="round"/>',
+heal:'<path d="M22 40 Q4 28 4 16 A9 9 0 0 1 22 14 A9 9 0 0 1 40 16 Q40 28 22 40Z" fill="#ef4444" stroke="#7f1d1d" stroke-width="2"/>',
+draw:'<rect x="8" y="8" width="20" height="30" rx="3" fill="#fde68a" stroke="#92400e"/><rect x="16" y="6" width="20" height="30" rx="3" fill="#fbbf24" stroke="#92400e"/><circle cx="26" cy="21" r="5" fill="#92400e"/>',
+sand:'<path d="M4 14 Q14 6 22 14 T40 14M4 24 Q14 16 22 24 T40 24M4 34 Q14 26 22 34 T40 34" stroke="#d6a85a" stroke-width="4" fill="none" stroke-linecap="round"/>'
+};
+const ICM={strike:'sword',defend:'shield',bash:'blast',cleave:'sword',pommel:'draw',shrug:'shield',heavy:'sword',twin:'sword',iron:'shield',adren:'draw',poison:'poison',inflame:'power',offer:'heal',slam:'shield',upper:'blast',disarm:'power',breath:'blast',pharaoh:'shield',sneak:'sword',sand:'sand',renew:'heal',ward:'shield',fury:'sword',mirror:'shield',plague:'poison',khop:'sword',bast:'draw',ra:'blast'};
+const cardArt=id=>`<svg viewBox="0 0 44 46" class="ca">${IC[ICM[id]||'sword']}</svg>`;
+const enArt=k=>`<div class="art">${ART[k]||''}</div>`;
 const $=id=>document.getElementById(id);
 const rnd=n=>Math.floor(Math.random()*n),pick=a=>a[rnd(a.length)];
 const sleep=ms=>new Promise(r=>setTimeout(r,FAST?0:ms));
@@ -108,11 +142,11 @@ function beep(f,d,tp,v,f2){if(mute||!AC||FAST)return;try{const o=AC.createOscill
 const scr=()=>$('scr');
 function topBar(){return `<div id="bar"><span>❤️ ${G.hp}/${G.max}</span><span>🪙 ${G.gold}</span><span>🏛️ ${G.floor}/10</span><span id="rel">${G.relics.map(r=>`<i title="${RELICS[r][1]}">${RELICS[r][0]}</i>`).join('')}</span><button id="mb" class="sm">${mute?'🔇':'🔊'}</button></div>`}
 function bindTop(){const b=$('mb');if(b)b.onclick=()=>{mute=!mute;localStorage.setItem('dd_mute',mute?'1':'0');b.textContent=mute?'🔇':'🔊'}}
-function cardHTML(c,o={}){const d=CARDS[c.id],v=cv(c);return `<div class="card t${d.t}${c.u?' up':''}${o.dis?' dis':''}${o.sel?' sel':''}" data-i="${o.i}"><b class="cc">${d.c}</b><div class="cn">${d.n}${c.u?'+':''}</div><div class="ce">${d.t==='a'?'⚔️':d.t==='s'?'🛡️':'✨'}</div><div class="cd">${d.d(v)}</div></div>`}
+function cardHTML(c,o={}){const d=CARDS[c.id],v=cv(c);return `<div class="card t${d.t}${c.u?' up':''}${o.dis?' dis':''}${o.sel?' sel':''}" data-i="${o.i}"><b class="cc">${d.c}</b><div class="cn">${d.n}${c.u?'+':''}</div><div class="ce">${cardArt(c.id)}</div><div class="cd">${d.d(v)}</div></div>`}
 function toast(t){const e=$('toast');e.textContent=t;e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('on'),1800)}
 // ---- menu
 function showMenu(){let has=false;try{has=!!localStorage.getItem('dd_run')}catch(e){}
- scr().innerHTML=`<div class="center"><div class="logo">🏺</div><h1>كروت الصحرا</h1><p class="sub">لعبة كروت روجلايك: ابني دِك، واهزم الحراس والنخبة، وواجه أبوفيس في آخر المعبد. لو مت بتبدأ من الأول!</p>
+ scr().innerHTML=`<div class="center"><div class="logo"><svg viewBox="0 0 44 46"><circle cx="22" cy="14" r="10" fill="none" stroke="#fbbf24" stroke-width="4"/><path d="M22 24 V44 M11 31 H33" stroke="#fbbf24" stroke-width="4" stroke-linecap="round"/></svg></div><h1>كروت الصحرا</h1><p class="sub">لعبة كروت روجلايك: ابني دِك، واهزم الحراس والنخبة، وواجه أبوفيس في آخر المعبد. لو مت بتبدأ من الأول!</p>
  <div class="mm">🏆 انتصارات: ${meta.wins} &nbsp; 🏛️ أبعد طابق: ${meta.best} &nbsp; 🎮 محاولات: ${meta.runs}</div>
  <button class="big alt" id="dfb">الصعوبة: ${DF[meta.df==null?1:meta.df][0]}</button>${has?'<button class="big" id="cont">كمّل الرحلة ▶</button>':''}<button class="big ${has?'alt':''}" id="newr">رحلة جديدة</button><button class="big alt" id="how">إزاي تلعب؟</button></div>`;
  $('newr').onclick=()=>{au();if(has&&!confirm('الرحلة القديمة هتتمسح. متأكد؟'))return;meta.runs++;saveMeta();newRun()};
@@ -147,7 +181,7 @@ const api={P:null,E,
  lose(n){G.hp=Math.max(1,G.hp-n)},heal(n){G.hp=Math.min(G.max,G.hp+n)}};
 function dealt(t,d,fromPlayer){const ab=Math.min(t.block,d);t.block-=ab;const r=d-ab;t.hp=Math.max(0,t.hp-r);fx(t,r?'-'+r:(ab?'🛡️':'0'),r?'hit':'blk');beep(r?180:260,.08,'square',.05)}
 function hurt(d){const ab=Math.min(C.P.block,d);C.P.block-=ab;const r=d-ab;G.hp=Math.max(0,G.hp-r);fx(null,r?'-'+r:'🛡️',r?'hit':'blk');if(r){beep(120,.2,'sawtooth',.07);$('scr').classList.add('shk');setTimeout(()=>$('scr').classList.remove('shk'),250)}}
-function fx(t,txt,cls){const el=t?document.querySelector(`[data-e="${C.en.indexOf(t)}"]`):$('pl');if(!el)return;const s=document.createElement('div');s.className='fx '+cls;s.textContent=txt;el.appendChild(s);setTimeout(()=>s.remove(),900);el.classList.add('flash');setTimeout(()=>el.classList.remove('flash'),200)}
+function fx(t,txt,cls){const el=t?document.querySelector(`[data-e="${C.en.indexOf(t)}"]`):$('pl');if(!el)return;const s=document.createElement('div');s.className='fx '+cls;s.textContent=txt;el.appendChild(s);setTimeout(()=>s.remove(),900);if(t&&cls==='hit'){const sl=document.createElement('div');sl.className='slash';el.appendChild(sl);setTimeout(()=>sl.remove(),380);el.classList.add('shk');setTimeout(()=>el.classList.remove('shk'),300)}el.classList.add('flash');setTimeout(()=>el.classList.remove('flash'),200)}
 function setIntent(e){const p=e.d.p;e.intent=p[e.t%p.length];e.t++}
 function drawCards(n){for(let i=0;i<n;i++){if(!C.draw.length){if(!C.disc.length)return;C.draw=shuffle(C.disc);C.disc=[]}if(C.hand.length>=10){C.disc.push(C.draw.pop());continue}C.hand.push(C.draw.pop())}}
 function startTurn(){C.turn++;C.energy=3+(G.relics.includes('sun')?1:0);
@@ -156,7 +190,7 @@ function startTurn(){C.turn++;C.energy=3+(G.relics.includes('sun')?1:0);
 function intentTxt(e){const i=e.intent;if(!i)return'';let s=[];if(i.a!==undefined)s.push('⚔️'+api.calc(e,i.a,C.P)+(i.x?'×'+i.x:''));if(i.b)s.push('🛡️'+i.b);if(i.str)s.push('⬆️');if(i.weak)s.push('☠️');if(i.vul)s.push('💢');return s.join(' ')}
 function renderCombat(){if(!C)return;
  const P=C.P;
- scr().innerHTML=topBar()+`<div class="field">${C.en.map((e,i)=>`<div class="en${e.hp<=0?' dead':''}${sel!==null&&e.hp>0?' tgt':''}" data-e="${i}"><div class="ei">${e.hp>0?intentTxt(e):''}</div><div class="eem">${e.e}</div><div class="en_n">${e.n}</div><div class="hpb"><i style="width:${Math.max(0,e.hp/e.max*100)}%"></i><span>${Math.max(0,e.hp)}/${e.max}</span></div><div class="stt">${e.block?'🛡️'+e.block+' ':''}${e.str?'⬆️'+e.str+' ':''}${e.vul>0?'💢'+e.vul+' ':''}${e.weak>0?'☠️'+e.weak+' ':''}${e.poi>0?'🧪'+e.poi:''}</div></div>`).join('')}</div>
+ scr().innerHTML=topBar()+`<div class="field">${C.en.map((e,i)=>`<div class="en${e.hp<=0?' dead':''}${sel!==null&&e.hp>0?' tgt':''}" data-e="${i}"><div class="ei">${e.hp>0?intentTxt(e):''}</div><div class="eem">${enArt(e.k)}</div><div class="en_n">${e.n}</div><div class="hpb"><i style="width:${Math.max(0,e.hp/e.max*100)}%"></i><span>${Math.max(0,e.hp)}/${e.max}</span></div><div class="stt">${e.block?'🛡️'+e.block+' ':''}${e.str?'⬆️'+e.str+' ':''}${e.vul>0?'💢'+e.vul+' ':''}${e.weak>0?'☠️'+e.weak+' ':''}${e.poi>0?'🧪'+e.poi:''}</div></div>`).join('')}</div>
  <div class="pl" id="pl"><span>🧙 أنت ❤️${G.hp}/${G.max}</span><span>${P.block?'🛡️'+P.block+' ':''}${P.str?'⬆️'+P.str+' ':''}${P.vul>0?'💢'+P.vul+' ':''}${P.weak>0?'☠️'+P.weak:''}</span></div>
  <div class="ctl"><div class="en_e">⚡ ${C.energy}/${3+(G.relics.includes('sun')?1:0)}</div><div class="piles">📚${C.draw.length} 🗑️${C.disc.length}</div><button class="big" id="end">إنهاء الدور</button></div>
  <div class="hand">${C.hand.map((c,i)=>cardHTML(c,{i,dis:CARDS[c.id].c>C.energy,sel:sel===i})).join('')}</div>`;bindTop();
