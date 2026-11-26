@@ -144,7 +144,7 @@ let G=null,C=null,sel=null;
 const save=()=>{try{localStorage.setItem('dd_run',JSON.stringify(G))}catch(e){}};
 let meta={wins:0,best:0,runs:0};try{meta=Object.assign(meta,JSON.parse(localStorage.getItem('dd_meta')||'{}'))}catch(e){}
 const saveMeta=()=>{try{localStorage.setItem('dd_meta',JSON.stringify(meta))}catch(e){}};
-const DF=[['سهل',90,.8],['عادي',70,1],['صعب',60,1.25]];
+const DF=[['سهل',90,.8],['عادي',75,.9],['صعب',65,1.1]];
 function newRun(){const df=meta.df==null?1:meta.df;G={df,hp:DF[df][1],max:DF[df][1],gold:60,deck:startDeck(),relics:[],floor:0,plan:PLAN.map(p=>p.slice()),cleared:0,rm:0};C=null;save();showMap()}
 // ---- audio
 let AC=null,mute=localStorage.getItem('dd_mute')==='1';
